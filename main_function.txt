@@ -1,0 +1,75 @@
+# Подключение необходимых бибилиотек
+import speech_recognition as sr
+from pygame import mixer
+from gtts import gTTS
+import os, sys
+import time
+from time import ctime
+from random import choice
+
+# Инициализация микрофона
+mixer.init()
+
+def speak(audioString):
+    '''Озвучка'''
+    print(audioString)
+    # Подключение к Google Cloud Text-To-Speech
+    tts = gTTS(text=audioString, lang='ru')
+    tts.save('audio.mp3')
+    # Загрузка и воспроизведение записи
+    mixer.music.load("audio.mp3")
+    mixer.music.play()
+
+    while mixer.music.get_busy():
+        time.sleep(0.1)
+
+def recordAudio():
+    '''Запись звука'''
+    r = sr.Recognizer()
+
+    with sr.Microphone() as source:
+        print('Скажите что-нибудь')
+        audio = r.listen(source)
+
+    # Входная фраза
+    data = ""
+
+    try:
+        data = r.recognize_google(audio)
+        print("Вы сказали " + data)
+    except sr.UnknownValueError:
+        print("Я Вас не слышу. Пожалуйста, повторите.")
+    except sr.RequestError:
+        print("Серверная ошибка")
+
+    return data
+
+def jarvis(data):
+    some_mood_dict = ('У меня все хорошо', 'Прекрасно', "Я в порядке")
+    if 'how are you' in data:
+        answer = choice(some_mood_dict)
+        speak(answer)
+
+    if 'time' in data:
+        speak(ctime())
+
+    if 'bye' in data or "that's all" in data:
+        print("До новых встреч!")
+        sys.exit()
+
+    if 'music' in data or 'some music please' in data:
+        os.startfile(r'C:\Program Files (x86)\Winamp\winamp.exe')
+
+    if 'internet' in data or 'open internet' in data:
+        os.startfile(r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe')
+
+    if 'cd' in data or 'open cd' in data or 'cd-rom' in data or 'open' in data:
+        fd = os.open(r"\.\PhysicalDrive1", os.O_RDONLY)
+        os.read(fd, 512)
+
+# Инициализация
+time.sleep(2)
+speak("Привет, чем я могу помочь Вам?")
+while 1:
+    data = recordAudio()
+    jarvis(data)
