@@ -67,6 +67,14 @@ def jarvis(data):
         fd = os.open(r"\.\PhysicalDrive1", os.O_RDONLY)
         os.read(fd, 512)
 
+    if 'found me' in data:
+        data = data.split(" ")
+        ask = data[2]
+        os.system('chrome https://google.com/' + ask + "/&amp;")
+
+    if 'pause' in data:
+        os.system('pause')
+
 # Инициализация
 time.sleep(2)
 speak("Привет, чем я могу помочь Вам?")
