@@ -1,5 +1,6 @@
 from speech import speak
 from audio_record import recordAudio
+import time
 
 import os, sys
 from time import ctime
@@ -16,15 +17,13 @@ def acting(data):
         # Допилить!
         speak('Today is ' + ctime())
 
-    if 'bye' in data or "that's all" in data:
-        print("До новых встреч!")
-        sys.exit()
-
     if 'music' in data or 'some music please' in data:
         os.startfile(r'C:\Program Files (x86)\Winamp\winamp.exe')
+        time.sleep(0.5)
 
     if 'internet' in data or 'open internet' in data:
         os.startfile(r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe')
+        time.sleep(0.5)
 
     '''Допилить!'''
     if 'cd' in data \
@@ -39,5 +38,7 @@ def acting(data):
         ask = data[2]
         os.system('chrome https://google.com/' + ask + "/&amp;")
 
-    if 'stop' in data:
-        os.system('pause')
+    if 'bye' in data or "that's all" in data:
+        print("До новых встреч!")
+        sys.exit()
+

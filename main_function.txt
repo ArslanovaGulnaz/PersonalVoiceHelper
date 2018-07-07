@@ -1,13 +1,20 @@
 # Подключение необходимых бибилиотек
 import time
+import speech_recognition as sr
 
 from action import acting
 from speech import speak
 from audio_record import recordAudio
 
+r = sr.Recognizer()
+
 # Инициализация
 time.sleep(2)
 speak("Hello how can I help you?")
+
 while 1:
-    data = recordAudio()
+    with sr.Microphone() as source:
+        print('Скажите что-нибудь')
+        audio = r.listen(source)
+    data = recordAudio(r, audio)
     acting(data)

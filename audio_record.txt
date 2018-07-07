@@ -1,13 +1,6 @@
 import speech_recognition as sr
 
-def recordAudio():
-    '''Запись звука'''
-    r = sr.Recognizer()
-
-    with sr.Microphone() as source:
-        print('Скажите что-нибудь')
-        audio = r.listen(source)
-
+def recordAudio(r, audio):
     # Входная фраза
     data = ""
 
