@@ -1,27 +1,36 @@
 from speech import speak
-from audio_record import recordAudio
+import requests
 import time
 
 import os, sys
 from time import ctime
 from random import choice
 
+'''
+def Continue(data):
+    speak('Continue?')
+    if 'no' in data:
+        speak('Bye')
+        sys.exit()
+    time.sleep(0.1)
+'''
+
 def acting(data):
     some_mood_dict = ("I'm all right ", 'Very good!', 'It can be worse')
     if 'how are you' in data:
         answer = choice(some_mood_dict)
-        # Допилить
         speak(answer)
 
     if 'time' in data:
-        # Допилить!
         speak('Today is ' + ctime())
 
     if 'music' in data or 'some music please' in data:
+        speak('Opening music player. Please, wait!')
         os.startfile(r'C:\Program Files (x86)\Winamp\winamp.exe')
         time.sleep(0.5)
 
     if 'internet' in data or 'open internet' in data:
+        speak('Opening Google Chrome browser. Please, wait!')
         os.startfile(r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe')
         time.sleep(0.5)
 
@@ -33,12 +42,14 @@ def acting(data):
         fd = os.open(r"\.\PhysicalDrive1", os.O_RDONLY|os.O_BINARY)
         os.read(fd)
 
+    '''Допилить!'''
     if 'found me' in data:
         data = data.split(" ")
         ask = data[2]
-        os.system('chrome https://google.com/' + ask + "/&amp;")
+        response = requests.get('https://www.google.com/', params=data)
+     #   os.system('chrome https://google.com/' + ask + "/&amp;")
 
     if 'bye' in data or "that's all" in data:
+        speak('See you!')
         print("До новых встреч!")
         sys.exit()
-
