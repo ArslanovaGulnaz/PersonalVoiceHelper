@@ -1,0 +1,43 @@
+from speech import speak
+from audio_record import recordAudio
+
+import os, sys
+from time import ctime
+from random import choice
+
+def acting(data):
+    some_mood_dict = ("I'm all right ", 'Very good!', 'It can be worse')
+    if 'how are you' in data:
+        answer = choice(some_mood_dict)
+        # Допилить
+        speak(answer)
+
+    if 'time' in data:
+        # Допилить!
+        speak('Today is ' + ctime())
+
+    if 'bye' in data or "that's all" in data:
+        print("До новых встреч!")
+        sys.exit()
+
+    if 'music' in data or 'some music please' in data:
+        os.startfile(r'C:\Program Files (x86)\Winamp\winamp.exe')
+
+    if 'internet' in data or 'open internet' in data:
+        os.startfile(r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe')
+
+    '''Допилить!'''
+    if 'cd' in data \
+            or 'open cd' in data \
+            or 'cd-rom' in data \
+            or 'open' in data:
+        fd = os.open(r"\.\PhysicalDrive1", os.O_RDONLY|os.O_BINARY)
+        os.read(fd)
+
+    if 'found me' in data:
+        data = data.split(" ")
+        ask = data[2]
+        os.system('chrome https://google.com/' + ask + "/&amp;")
+
+    if 'stop' in data:
+        os.system('pause')
