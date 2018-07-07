@@ -1,0 +1,19 @@
+from pygame import mixer
+from gtts import gTTS
+import time
+
+# Инициализация микрофона
+mixer.init()
+
+def speak(audioString):
+    '''Озвучка'''
+    print(audioString)
+    # Подключение к Google Cloud Text-To-Speech
+    tts = gTTS(text=audioString, lang='en')
+    tts.save('audio.mp3')
+    # Загрузка и воспроизведение записи
+    mixer.music.load('audio.mp3')
+    mixer.music.play()
+
+    while mixer.music.get_busy():
+        time.sleep(0.1)
