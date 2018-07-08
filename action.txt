@@ -1,10 +1,10 @@
 from speech import speak
-import requests
 import time
 
 import os, sys
 from time import ctime
 from random import choice
+from web_browser import Webbrowser
 
 '''
 def Continue(data):
@@ -43,11 +43,8 @@ def acting(data):
         os.read(fd)
 
     '''Допилить!'''
-    if 'found me' in data:
-        data = data.split(" ")
-        ask = data[2]
-        response = requests.get('https://www.google.com/', params=data)
-     #   os.system('chrome https://google.com/' + ask + "/&amp;")
+    if 'search' in data:
+        Webbrowser(data)
 
     if 'bye' in data or "that's all" in data:
         speak('See you!')
