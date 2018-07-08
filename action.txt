@@ -1,5 +1,6 @@
 from speech import speak
 import time
+from ctypes import *
 
 import os, sys
 from time import ctime
@@ -16,6 +17,7 @@ def Continue(data):
 '''
 
 def acting(data):
+
     some_mood_dict = ("I'm all right ", 'Very good!', 'It can be worse')
     if 'how are you' in data:
         answer = choice(some_mood_dict)
@@ -34,15 +36,12 @@ def acting(data):
         os.startfile(r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe')
         time.sleep(0.5)
 
-    '''Допилить!'''
-    if 'cd' in data \
-            or 'open cd' in data \
-            or 'cd-rom' in data \
-            or 'open' in data:
-        fd = os.open(r"\.\PhysicalDrive1", os.O_RDONLY|os.O_BINARY)
-        os.read(fd)
+    if 'rom' in data or 'open' in data:
+        speak('Opening CD-ROM. Please, wait')
+        windll.WINMM.mciSendStringW(u"set cdaudio door open", None, 0, None)
+        time.sleep(0.10)
+        speak("Don't forget to close CD-ROM")
 
-    '''Допилить!'''
     if 'search' in data:
         Webbrowser(data)
 
