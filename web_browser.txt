@@ -4,6 +4,9 @@ from speech import speak
 
 def Webbrowser(data):
     data = data.split(" ")
-    ask = data[1]
-    speak("Wait a minute. I'm searching for a " + ask)
-    webbrowser.open('https://google.com?#q=' + ask, new=2)
+    ask = []
+    for counter in range(1, len(data)):
+        ask.append(data[counter])
+    request = ' '.join(ask)
+    speak("Wait a minute. I'm searching for a " + request)
+    webbrowser.open('https://google.com?#q=' + request, new=2)
