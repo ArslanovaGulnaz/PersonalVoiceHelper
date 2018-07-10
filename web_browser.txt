@@ -1,12 +1,13 @@
 import webbrowser
 
-from speech import speak
+from speech import Speak
 
-def Webbrowser(data):
+def Search(data):
     data = data.split(" ")
     ask = []
     for counter in range(1, len(data)):
         ask.append(data[counter])
     request = ' '.join(ask)
-    speak("Wait a minute. I'm searching for a " + request)
+    print("Wait a minute. I'm searching for a " + request)
+    Speak("Wait a minute. I'm searching for a " + request)
     webbrowser.open('https://google.com?#q=' + request, new=2)
