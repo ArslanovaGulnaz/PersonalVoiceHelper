@@ -3,7 +3,7 @@ from gtts import gTTS
 import time
 from tempfile import TemporaryFile
 
-def speak(audioString):
+def Speak(audioString):
     # Инициализация микрофона
     mixer.init()
 
