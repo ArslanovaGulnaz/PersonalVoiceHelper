@@ -1,11 +1,11 @@
-from speech import speak
+from speech import Speak
 import time
 from ctypes import *
 
 import os, sys
 from time import ctime
 from random import choice
-from web_browser import Webbrowser
+from web_browser import Search
 
 '''
 def Continue(data):
@@ -16,36 +16,36 @@ def Continue(data):
     time.sleep(0.1)
 '''
 
-def acting(data):
-
+def Acting(data):
+    '''Функция различных действий'''
     some_mood_dict = ("I'm all right ", 'Very good!', 'It can be worse')
     if 'how are you' in data:
         answer = choice(some_mood_dict)
-        speak(answer)
+        Speak(answer)
 
     if 'time' in data:
-        speak('Today is ' + ctime())
+        Speak('Today is ' + ctime())
 
     if 'music' in data or 'some music please' in data:
-        speak('Opening music player. Please, wait!')
+        Speak('Opening music player. Please, wait!')
         os.startfile(r'C:\Program Files (x86)\Winamp\winamp.exe')
         time.sleep(0.5)
 
     if 'internet' in data or 'open internet' in data:
-        speak('Opening Google Chrome browser. Please, wait!')
+        Speak('Opening Google Chrome browser. Please, wait!')
         os.startfile(r'C:\Program Files (x86)\Google\Chrome\Application\chrome.exe')
         time.sleep(0.5)
 
     if 'rom' in data or 'open' in data:
-        speak('Opening CD-ROM. Please, wait')
+        Speak('Opening CD-ROM. Please, wait')
         windll.WINMM.mciSendStringW(u"set cdaudio door open", None, 0, None)
         time.sleep(0.10)
-        speak("Don't forget to close CD-ROM")
+        Speak("Don't forget to close CD-ROM")
 
     if 'search' in data:
-        Webbrowser(data)
+        Search(data)
 
     if 'bye' in data or "that's all" in data:
-        speak('See you!')
+        Speak('See you!')
         print("До новых встреч!")
         sys.exit()
